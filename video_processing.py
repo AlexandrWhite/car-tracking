@@ -1,0 +1,48 @@
+import cv2 
+import base64
+class VideoPlayer:
+    def __init__(self):
+        self.default_frame = cv2.imread('static/default_video.png')
+        self.cap = cv2.VideoCapture()
+        self.on_pause = False 
+
+    def generate_frames(self):
+
+        if not self.cap.isOpened():
+            buffer = cv2.imencode('.jpg',self.default_frame)[1]
+            frame = buffer.tobytes()
+            yield (b'--frame\r\n'b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')    
+
+        previous_frame = None 
+        while self.cap.isOpened():
+            if self.on_pause:
+                ret, frame = True, previous_frame
+            else:
+                ret, frame = self.cap.read()
+                previous_frame = frame
+            
+            if not ret:
+                frame = cv2.imencode('.jpg',self.default_frame)[1]
+
+            buffer = cv2.imencode('.jpg',frame)[1]
+            frame = buffer.tobytes()
+            
+            yield (b'--frame\r\n'b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')    
+
+    def run_new_video(self, path):
+        self.cap = cv2.VideoCapture(path)
+        
+    def pause(self):
+        if not self.on_pause:
+            self.on_pause = True 
+    
+    def play(self):
+        if self.on_pause:
+            self.on_pause = False
+    
+
+
+
+
+    
+    
