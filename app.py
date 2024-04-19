@@ -7,6 +7,7 @@ import random
 from video_processing import VideoPlayer
 
 app = Flask(__name__)
+run_with_ngrok(app)
 app.config['UPLOAD_FOLDER'] = 'video'
 
 @app.route('/')
