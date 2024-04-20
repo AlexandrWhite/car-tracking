@@ -29,11 +29,14 @@ def upload():
         if file.filename == '':
             return redirect(request.url)
         if file:
+            
             filename = secure_filename(file.filename)
             path =  os.path.join(app.config['UPLOAD_FOLDER'],filename)
             file.save(path)
             vp.run_new_video(path)
-            return redirect(url_for('index'))
+            res = make_response(jsonify({'message':f"{file.filename} uploaded"}),200)
+            redirect(url_for('index'))
+            return res
 
 
 @app.route('/upload_video', methods=["GET","POST"])
@@ -46,7 +49,7 @@ def upload_video():
         print(file)
 
         res = make_response(jsonify({'message':f"{file.filename} uploaded"}),200)
-        return redirect(url_for('index'))
+        return res 
 
 
 if __name__ == '__main__':
