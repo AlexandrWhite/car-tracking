@@ -8,6 +8,7 @@ from video_processing import VideoPlayer
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'video'
+#run_with_ngrok(app)
 
 @app.route('/')
 def index():
@@ -35,6 +36,17 @@ def upload():
             return redirect(url_for('index'))
 
 
+@app.route('/upload_video', methods=["GET","POST"])
+def upload_video():
+    if request.method == 'POST':
+        filesize = request.cookies.get('filesize')
+        file = request.files['file']
+
+        print(f"Filesize {filesize}")
+        print(file)
+
+        res = make_response(jsonify({'message':f"{file.filename} uploaded"}),200)
+        return redirect(url_for('index'))
 
 
 if __name__ == '__main__':
