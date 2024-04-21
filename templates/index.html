@@ -52,9 +52,11 @@
       
     </div>
 
-    <img src="{{url_for('video')}}" width="60%">
+    <img id="videoimg" src="{{url_for('video')}}" width="70%">
 
     <script>
+      var videoimg = document.getElementById("videoimg");
+
       var progress = document.getElementById("progress-bar");
       var progress_wrapper = document.getElementById("progress_wrapper");
       var progress_status = document.getElementById("progress_status");
@@ -68,9 +70,10 @@
       var input = document.getElementById("file_input");
       var file_input_label = document.getElementById("file_input_label");
 
+
       function show_alert(message, alert){
         alert_wrapper.innerHTML = `
-        <div class="alert alert-${alert} alert-dismissible fade show" role="alert">
+        <div margin=5 class="alert alert-${alert} alert-dismissible fade show" role="alert">
           <span>${message}</span>
           <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>`
@@ -113,6 +116,7 @@
         request.addEventListener("load", function(e){
           if(request.status == 200){
             show_alert(request.response.message, "success");
+            location.reload(true);
           }
           else{
             show_alert("Не удалось загрузить файл", "danger");

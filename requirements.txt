@@ -1,4 +1,2 @@
-pyngrok
-flask_ngrok
 flask
 opencv-python
