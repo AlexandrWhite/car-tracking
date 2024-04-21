@@ -1,9 +1,3 @@
-<<<<<<< HEAD
 flask
 opencv-python
-=======
-pyngrok
-flask_ngrok
-flask
-opencv-python
->>>>>>> b2898d66f0c0509597f5c86f287d676322bcb7f2
+
