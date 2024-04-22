@@ -26,7 +26,7 @@ class VideoPlayer:
                 frame = cv2.imencode('.jpg',self.default_frame)[1]
 
             
-            compression_level = 50
+            compression_level = 30
             buffer = cv2.imencode('.jpg',frame,[cv2.IMWRITE_JPEG_QUALITY, compression_level])[1]
             frame = buffer.tobytes()
             
