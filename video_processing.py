@@ -33,7 +33,7 @@ class VideoPlayer:
             if not ret:
                 frame = cv2.imencode('.jpg',self.default_frame)[1]
             else:
-                results = self.model.predict(frame, verbose=False)
+                results = self.model.predict(frame, verbose=False, classes = [2,3,5,7])
                 frame = results[0].plot()
             
             compression_level = 30
