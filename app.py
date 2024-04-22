@@ -8,15 +8,15 @@ from video_processing import VideoPlayer
 from pyngrok import ngrok, conf
 
 app = Flask(__name__)
-conf.get_default().auth_token = '2fKNpAlhTcNYlDTyZDjVDuTd58t_4sJBcLPh84HbVQ1ZKLnCg'
-public_url = ngrok.connect(5000).public_url
-print(" * ngrok tunnel \"{}\" -> \"http://127.0.0.1:{}/\"".format(public_url, 5000))
+# conf.get_default().auth_token = '2fKNpAlhTcNYlDTyZDjVDuTd58t_4sJBcLPh84HbVQ1ZKLnCg'
+# public_url = ngrok.connect(5000).public_url
+# print(" * ngrok tunnel \"{}\" -> \"http://127.0.0.1:{}/\"".format(public_url, 5000))
 
-app.config["BASE_URL"] = public_url
+# app.config["BASE_URL"] = public_url
 
 app.config['UPLOAD_FOLDER'] = 'video'
 vp = VideoPlayer()
-vp.run_new_video('video/2024-04-09_19-35-40_online-video-cutter.com.mp4')
+vp.run_new_video('flask_test\\video\\test.mp4')
 
 
 @app.route('/')
@@ -50,7 +50,7 @@ def upload():
             return res
 
 
-# if __name__ == '__main__':
-#     app.run()
+if __name__ == '__main__':
+    app.run()
 
-threading.Thread(target=app.run, kwargs={"use_reloader": False}).start()
+#threading.Thread(target=app.run, kwargs={"use_reloader": False}).start()
