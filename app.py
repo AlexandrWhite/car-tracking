@@ -1,18 +1,29 @@
 from flask import Flask, jsonify, Response, make_response, redirect, url_for, request, render_template
 from werkzeug.utils import secure_filename
-
+import os
+import threading
 import os 
 import random
 from video_processing import VideoPlayer
+from pyngrok import ngrok, conf
 
 app = Flask(__name__)
+conf.get_default().auth_token = '2fKNpAlhTcNYlDTyZDjVDuTd58t_4sJBcLPh84HbVQ1ZKLnCg'
+public_url = ngrok.connect(5000).public_url
+print(" * ngrok tunnel \"{}\" -> \"http://127.0.0.1:{}/\"".format(public_url, 5000))
+
+app.config["BASE_URL"] = public_url
+
 app.config['UPLOAD_FOLDER'] = 'video'
+vp = VideoPlayer()
+vp.run_new_video('video/2024-04-09_19-35-40_online-video-cutter.com.mp4')
+
 
 @app.route('/')
 def index():
     return render_template('index.html')
 
-vp = VideoPlayer()
+
 
 @app.route('/video', methods=['GET','POST'])
 def video():
@@ -39,5 +50,7 @@ def upload():
             return res
 
 
-if __name__ == '__main__':
-    app.run()
+# if __name__ == '__main__':
+#     app.run()
+
+threading.Thread(target=app.run, kwargs={"use_reloader": False}).start()
