@@ -14,9 +14,16 @@ app = Flask(__name__)
 
 # app.config["BASE_URL"] = public_url
 
+
+
+
+
 app.config['UPLOAD_FOLDER'] = 'video'
 vp = VideoPlayer()
-vp.run_new_video('flask_test\\video\\test.mp4')
+vp.run_new_video('flask_test/video/test.mp4')
+
+
+
 
 
 @app.route('/')
