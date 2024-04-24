@@ -1,9 +1,10 @@
-function fetchSlonik() {
-    fetch('/slonik')
+function fetchCountTable() {
+    fetch('/count_table')
     .then(response => response.json())
     .then(data => {
-        document.getElementById('best_animal').innerHTML = data.animal_table;
+        document.getElementById('count_table').innerHTML = data.data;
     })
     .catch(error => console.error('Error:', error));
 }
-//setInterval(fetchSlonik, 1000);
+//Запрашивать таблицу каждую секунду
+setInterval(fetchCountTable, 1000);
