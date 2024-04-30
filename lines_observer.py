@@ -25,7 +25,6 @@ class LineObserver:
         if len(self.target_objects[obj_id]['lines'])==2:
             
             line_id1, line_id2 = self.target_objects[obj_id]['lines'][0], self.target_objects[obj_id]['lines'][1]
-            direction = f'{line_id1}->{line_id2}'
             
             class_id = self.target_objects[obj_id]['class_id']
             class_name = LineObserver.class_dict[class_id]
