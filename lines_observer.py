@@ -33,10 +33,6 @@ class LineObserver:
             self.row_list.append(dict(zip(LineObserver.columns, values)))
             self.date_table = pd.DataFrame(self.row_list, columns=LineObserver.columns)
             print(self.date_table)
-
-        elif len(self.target_objects[obj_id]['lines'])==1:
-            ##для дебага
-            print("--",self.target_objects[obj_id]['lines'], obj_id)
             
 
     def update(self, detections:sv.Detections):
