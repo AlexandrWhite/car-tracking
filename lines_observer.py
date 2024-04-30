@@ -28,11 +28,11 @@ class LineObserver:
             
             class_id = self.target_objects[obj_id]['class_id']
             class_name = LineObserver.class_dict[class_id]
-            #selfd.info_table[direction][class_name] += 1
 
             values = (datetime.datetime.now(), line_id1, line_id2, class_name)
             self.row_list.append(dict(zip(LineObserver.columns, values)))
             self.date_table = pd.DataFrame(self.row_list, columns=LineObserver.columns)
+            print(self.date_table)
 
         elif len(self.target_objects[obj_id]['lines'])==1:
             ##для дебага
