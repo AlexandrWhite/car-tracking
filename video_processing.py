@@ -87,7 +87,7 @@ class VideoPlayer:
             self.points.clear()
     
     def get_stat(self):
-        return self.line_observer.info_table
+        return self.line_observer.date_table
 
 
 

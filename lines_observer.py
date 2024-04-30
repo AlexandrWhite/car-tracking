@@ -1,17 +1,21 @@
 import supervision as sv 
 import pandas as pd
+import datetime
 
 class LineObserver:
     
     class_dict = {2:'car',3:'motorcycle',5:'bus',7:'truck'}
-    
+    columns=["date","from","to","class"]
 
     def __init__(self):
         self.lines = dict()
         self.target_objects = dict()
         self.id = 0
 
+        self.row_list = []
         self.info_table = pd.DataFrame() 
+        self.date_table = pd.DataFrame()
+        
 
     def add_line(self, line:sv.LineZone):
         self.id += 1
@@ -22,13 +26,14 @@ class LineObserver:
             
             line_id1, line_id2 = self.target_objects[obj_id]['lines'][0], self.target_objects[obj_id]['lines'][1]
             direction = f'{line_id1}->{line_id2}'
-
-            if direction not in self.info_table.columns:
-                self.info_table[direction] = {'car':0, 'truck':0, 'bus':0, 'motorcycle':0}
             
             class_id = self.target_objects[obj_id]['class_id']
             class_name = LineObserver.class_dict[class_id]
             self.info_table[direction][class_name] += 1
+
+            values = (datetime.datetime.now(), line_id1, line_id2, class_name)
+            self.row_list.append(dict(zip(LineObserver.columns, values)))
+            self.date_table = pd.DataFrame(self.row_list, columns=LineObserver.columns)
 
         elif len(self.target_objects[obj_id]['lines'])==1:
             ##для дебага
@@ -60,6 +65,7 @@ class LineObserver:
             #print(detections[crossed_out].tracker_id)
     def info(self):
         print(self.info_table)
+    
     
     
             
