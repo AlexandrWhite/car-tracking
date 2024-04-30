@@ -10,7 +10,7 @@ class LineObserver:
         self.target_objects = dict()
         self.row_list = []
         self.date_table = pd.DataFrame()
-        
+        self.id = 0
 
     def add_line(self, line:sv.LineZone):
         self.id += 1
