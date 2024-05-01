@@ -4,7 +4,7 @@ import datetime
 
 class LineObserver:
     columns=["date","from","to","class"]
-    class_dict = {2:'car',3:'motorcycle',5:'bus',7:'truck'}
+    
 
     def __init__(self):
         self.lines = dict()
@@ -23,8 +23,9 @@ class LineObserver:
             
             line_id1, line_id2 = self.target_objects[obj_id]['lines'][0], self.target_objects[obj_id]['lines'][1]
             
+            class_dict = {2:'car',3:'motorcycle',5:'bus',7:'truck'}
             class_id = self.target_objects[obj_id]['class_id']
-            class_name = LineObserver.class_dict[class_id]
+            class_name = class_dict[class_id]
 
             values = (datetime.datetime.now(), line_id1, line_id2, class_name)
             self.row_list.append(dict(zip(LineObserver.columns, values)))
@@ -46,7 +47,5 @@ class LineObserver:
                     else:
                         self.target_objects[obj_id]['lines'].append(lz_id)
                     self.upd_directions(obj_id)
-    
-    
-            
+
            
