@@ -4,14 +4,14 @@ import datetime
 
 class LineObserver:
     columns=["date","from","to","class"]
-    class_dict = {2:'car',3:'motorcycle',5:'bus',7:'truck'}
+    
 
     def __init__(self):
         self.lines = dict()
         self.target_objects = dict()
         self.row_list = []
         self.date_table = pd.DataFrame()
-        self.id = 0
+        self.id = 0 #id для линий которые будут добавляться
 
     def add_line(self, line:sv.LineZone):
         self.id += 1
@@ -23,7 +23,8 @@ class LineObserver:
             line_id1, line_id2 = self.target_objects[obj_id]['lines'][0], self.target_objects[obj_id]['lines'][1]
            
             class_id = self.target_objects[obj_id]['class_id']
-            class_name = self.class_dict[class_id]
+            class_to_str = {2:'car',3:'motorcycle',5:'bus',7:'truck'}
+            class_name = class_to_str[class_id]
 
             values = (datetime.datetime.now(), line_id1, line_id2, class_name)
             self.row_list.append(dict(zip(LineObserver.columns, values)))
