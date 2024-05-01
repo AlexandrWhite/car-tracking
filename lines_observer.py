@@ -4,7 +4,8 @@ import datetime
 
 class LineObserver:
     columns=["date","from","to","class"]
-
+    class_dict = {2:'car',3:'motorcycle',5:'bus',7:'truck'}
+    
     def __init__(self):
         self.lines = dict()
         self.target_objects = dict()
