@@ -39,7 +39,8 @@ class VideoPlayer:
                 if self.playlist_cur > 0:
                    file_name = re.match(r'.+/(.*)\.webm', self.playlist[self.playlist_cur-1]).group(1)
                    print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+file_name)
-                   self.line_observer.date_table.to_csv(f'flask_test\\csv_result\\{file_name}.csv')
+                   #self.line_observer.date_table.to_csv(f'flask_test\\csv_result\\{file_name}.csv')
+                   self.line_observer.date_table.to_csv(f'/content/drive/MyDrive/may1csv/{file_name}.csv')
                 if self.playlist_cur < len(self.playlist):
                     self.run_new_video()
                     continue
