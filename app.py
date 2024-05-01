@@ -8,11 +8,6 @@ from video_processing import VideoPlayer
 from pyngrok import ngrok, conf
 
 app = Flask(__name__)
-# conf.get_default().auth_token = '2fKNpAlhTcNYlDTyZDjVDuTd58t_4sJBcLPh84HbVQ1ZKLnCg'
-# public_url = ngrok.connect(5000).public_url
-# print(" * ngrok tunnel \"{}\" -> \"http://127.0.0.1:{}/\"".format(public_url, 5000))
-
-# app.config["BASE_URL"] = public_url
 
 
 
@@ -20,8 +15,14 @@ app = Flask(__name__)
 
 app.config['UPLOAD_FOLDER'] = 'video'
 vp = VideoPlayer()
-vp.run_new_video('flask_test/video/test.mp4')
+#vp.run_new_video('flask_test/video/test.mp4')
+vp.run_new_video('flask_test/video/2024-04-09_19-35-40_online-video-cutter.com.mp4')
 
+
+vp.add_line(322,13, 650,187, 781,439)
+vp.add_line(24,133, 286,22, 781,439)
+vp.add_line(325,431, 557,218, 781,439)
+vp.add_line(90,233,260,437,781,439)
 
 @app.route('/')
 def index():

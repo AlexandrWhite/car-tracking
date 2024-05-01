@@ -80,6 +80,8 @@
 
       async function add_new_point(event){
         var rect = event.target.getBoundingClientRect();
+        //alert(`x: ${event.clientX-rect.left} y: ${event.clientY-rect.top}`);
+        //alert(`width: ${this.width} height: ${this.height}`);
         const res = await fetch('/add_point', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},

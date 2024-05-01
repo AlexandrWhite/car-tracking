@@ -86,6 +86,10 @@ class VideoPlayer:
             self.line_observer.add_line(lz)
             self.points.clear()
     
+    def add_line(self,x1,y1,x2,y2,width,height):
+        self.add_point(x1,y1,width, height)
+        self.add_point(x2,y2,width, height)
+
     def get_stat(self):
         return self.line_observer.date_table
 
