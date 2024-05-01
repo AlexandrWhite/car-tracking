@@ -16,7 +16,16 @@ app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'video'
 vp = VideoPlayer()
 #vp.run_new_video('flask_test/video/test.mp4')
-vp.run_new_video('flask_test/video/2024-04-09_19-35-40_online-video-cutter.com.mp4')
+
+vid_ind = 0 
+VIDEOS = [
+    'X:\\video_record\\old_comp\\test1.webm',
+    'X:\\video_record\\old_comp\\test2.webm',
+    'X:\\video_record\\old_comp\\test3.webm',
+]
+
+vp.set_playlist(VIDEOS)
+
 
 
 vp.add_line(322,13, 650,187, 781,439)

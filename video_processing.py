@@ -5,10 +5,14 @@ from ultralytics import YOLO
 from lines_observer import LineObserver
 from id_line_annotator import IdLineAnnotator
 import torch
+import re 
 
 class VideoPlayer:
     def __init__(self, model='yolov8n.pt'):
         self.cap = cv2.VideoCapture()
+
+        self.playlist = []
+        self.playlist_cur = 0
 
         device = 'cuda' if torch.cuda.is_available() else 'cpu'
         print(f'Using device: {device}')
@@ -26,16 +30,21 @@ class VideoPlayer:
         tracker = sv.ByteTrack()
 
         if not self.cap.isOpened():
-            frame = cv2.imread('flask_test/static/default_video.png')
-            buffer = cv2.imencode('.jpg',frame)[1]
-            frame = buffer.tobytes()
-            yield (b'--frame\r\n'b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')    
+            return None    
 
         while self.cap.isOpened():
             ret, frame = self.cap.read()
 
             if not ret:
-                frame = cv2.imencode('.jpg',self.default_frame)[1]
+                if self.playlist_cur > 0:
+                   file_name = re.match(r'.+\\(.*)\.webm', self.playlist[self.playlist_cur-1]).group(1)
+                   print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+file_name)
+                   self.line_observer.date_table.to_csv(f'flask_test\\csv_result\\{file_name}.csv')
+                if self.playlist_cur < len(self.playlist):
+                    self.run_new_video()
+                    continue
+                else:
+                    break
             else:
                 for point in self.points:
                     frame = cv2.circle(frame, (point.x, point.y), radius=4, color=(0, 0, 255), thickness=-1)    
@@ -63,11 +72,19 @@ class VideoPlayer:
             frame = buffer.tobytes()
             
             yield (b'--frame\r\n'b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')    
- 
 
-    def run_new_video(self, path):
-        self.cap = cv2.VideoCapture(path)
+    def run_new_video(self):
+        if self.playlist_cur < len(self.playlist):
+            self.cap = cv2.VideoCapture(self.playlist[self.playlist_cur])
+            self.playlist_cur += 1
+        
     
+    def set_playlist(self,playlist):
+        self.playlist = playlist
+        self.playlist_cur = 0
+        self.run_new_video()
+
+
     def add_point(self,x,y,width,height):
         orig_width = self.cap.get(cv2.CAP_PROP_FRAME_WIDTH)
         orig_height = self.cap.get(cv2.CAP_PROP_FRAME_HEIGHT)
@@ -92,7 +109,6 @@ class VideoPlayer:
 
     def get_stat(self):
         return self.line_observer.date_table
-
 
 
 
