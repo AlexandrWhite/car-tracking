@@ -75,10 +75,10 @@
       var file_input_label = document.getElementById("file_input_label");
 
       videoimg.addEventListener("click",add_new_point);
+      
+      
 
       async function add_new_point(event){
-        alert(event.clientX-rect.left+" "+event.clientY-rect.top)
-
         var rect = event.target.getBoundingClientRect();
         const res = await fetch('/add_point', {
             method: 'POST',
