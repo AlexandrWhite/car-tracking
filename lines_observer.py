@@ -20,12 +20,10 @@ class LineObserver:
     def upd_directions(self,obj_id):
         # Если линий две то делаем запись в таблицу
         if len(self.target_objects[obj_id]['lines'])==2:
-            
             line_id1, line_id2 = self.target_objects[obj_id]['lines'][0], self.target_objects[obj_id]['lines'][1]
-            
            
             class_id = self.target_objects[obj_id]['class_id']
-            class_name = LineObserver.class_dict[int(class_id)]
+            class_name = self.class_dict[class_id]
 
             values = (datetime.datetime.now(), line_id1, line_id2, class_name)
             self.row_list.append(dict(zip(LineObserver.columns, values)))
