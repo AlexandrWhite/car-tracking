@@ -37,9 +37,11 @@ class LineObserver:
             crossed_in, crossed_out = lz.trigger(detections)
 
             for direction in (crossed_in,crossed_out):
-                objects_id = detections[direction].tracker_id
-                classes_id = detections[direction].class_id
-
+                try:
+                    objects_id = detections[direction].tracker_id
+                    classes_id = detections[direction].class_id
+                except:
+                    continue
                 for obj_id, class_id in zip(objects_id, classes_id):
                     if obj_id not in self.target_objects.keys():
                         self.target_objects[obj_id] = {'lines':[lz_id], 'class_id':class_id}

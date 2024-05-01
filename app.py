@@ -5,7 +5,7 @@ import threading
 import os 
 import random
 from video_processing import VideoPlayer
-from pyngrok import ngrok, conf
+
 
 app = Flask(__name__)
 
