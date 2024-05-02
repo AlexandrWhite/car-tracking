@@ -2,8 +2,8 @@ import pandas as pd
 import datetime 
 import re 
 
-path = 'C:\\Users\\master\\Downloads\\test1.mp4'
-file_name = re.match(r'.+\\(.*)\.mp4', path).group(1)
+path = '/content/drive/MyDrive/video1may3/test1.mp4'
+file_name = re.match(r'.+/(.*)\.mp4', path).group(1)
 print("FILENAME: ", file_name)
 
 columns=["date","from","to","class"]
