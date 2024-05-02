@@ -7,4 +7,4 @@ function fetchCountTable() {
     .catch(error => console.error('Error:', error));
 }
 //Запрашивать таблицу каждую секунду
-setInterval(fetchCountTable, 1000);
+setInterval(fetchCountTable, 10000);
