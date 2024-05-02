@@ -36,7 +36,6 @@ class VideoPlayer:
         while self.cap.isOpened():
             ret, frame = self.cap.read()
 
-            self.line_observer.update_table()
 
             if not ret:
                 if self.playlist_cur > 0:
