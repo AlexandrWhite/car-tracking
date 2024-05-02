@@ -39,6 +39,7 @@ class VideoPlayer:
             ret, frame = self.cap.read()
 
             if ret and self.cur_frame % 5000 == 0:
+                file_name = re.match(r'.+/(.*)\.mp4', self.playlist[self.playlist_cur-1]).group(1)
                 self.line_observer.update_table()
                 self.line_observer.date_table.to_csv(f'/content/drive/MyDrive/may1csv/{file_name}.csv')
 
