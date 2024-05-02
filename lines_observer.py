@@ -11,7 +11,10 @@ class LineObserver:
         self.row_list = []
         self.date_table = pd.DataFrame()
         self.id = 0 #id для линий которые будут добавляться
+
         self.row_list_size = 0
+        self.target_objects_size = 0 
+
         self.delta_time = delta_time
 
 
@@ -32,6 +35,7 @@ class LineObserver:
             self.row_list.append(dict(zip(LineObserver.columns, values)))
             self.row_list_size += 1
             print("ROW_LIST_SIZE:", self.row_list_size)
+            print("TARGET_OBJ_SZ", self.target_objects_size)
 
     def update(self, detections:sv.Detections):
         # Добавляем к объекту номер линии которую он пересек
@@ -47,6 +51,7 @@ class LineObserver:
                 for obj_id, class_id in zip(objects_id, classes_id):
                     if obj_id not in self.target_objects.keys():
                         self.target_objects[obj_id] = {'lines':[lz_id], 'class_id':class_id}
+                        self.target_objects_size += 1
                     else:
                         self.target_objects[obj_id]['lines'].append(lz_id)
                     self.upd_directions(obj_id)

@@ -38,9 +38,10 @@ class VideoPlayer:
         while self.cap.isOpened():
             ret, frame = self.cap.read()
 
-            if ret and self.cur_frame % 5000 == 0:
+            if ret and self.cur_frame % 3000 == 0:
                 file_name = re.match(r'.+/(.*)\.mp4', self.playlist[self.playlist_cur-1]).group(1)
                 self.line_observer.update_table()
+                self.line_observer.target_objects.clear()
                 self.line_observer.date_table.to_csv(f'/content/drive/MyDrive/may1csv/{file_name}.csv')
 
             if not ret:
@@ -76,7 +77,7 @@ class VideoPlayer:
                             line_counter = self.line_observer.lines[line_id], id=line_id)
 
 
-            compression_level = 30
+            compression_level = 70
             buffer = cv2.imencode('.jpg',frame,[cv2.IMWRITE_JPEG_QUALITY, compression_level])[1]
             frame = buffer.tobytes()
             self.cur_frame += 1
