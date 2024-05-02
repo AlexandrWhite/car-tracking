@@ -28,10 +28,10 @@ vp.set_playlist(VIDEOS)
 
 
 
-vp.add_line(322,13, 650,187, 781,439)
-vp.add_line(24,133, 286,22, 781,439)
-vp.add_line(325,431, 557,218, 781,439)
-vp.add_line(90,233,260,437,781,439)
+vp.add_line(284,49, 617,253, 781,439)
+vp.add_line(161,170, 369,424, 781,439)
+vp.add_line(276,432, 607,212, 781,439)
+vp.add_line(1,272, 454,34, 781,439)
 
 @app.route('/')
 def index():

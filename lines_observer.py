@@ -28,7 +28,6 @@ class LineObserver:
 
             values = (datetime.datetime.now(), line_id1, line_id2, class_name)
             self.row_list.append(dict(zip(LineObserver.columns, values)))
-            self.date_table = pd.DataFrame(self.row_list, columns=LineObserver.columns)
             
 
     def update(self, detections:sv.Detections):
@@ -49,4 +48,5 @@ class LineObserver:
                         self.target_objects[obj_id]['lines'].append(lz_id)
                     self.upd_directions(obj_id)
 
-           
+    def update_table(self):
+        self.date_table = pd.DataFrame(self.row_list, columns=LineObserver.columns)
