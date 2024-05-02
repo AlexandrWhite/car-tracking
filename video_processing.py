@@ -40,7 +40,7 @@ class VideoPlayer:
         while self.cap.isOpened():
             ret, frame = self.cap.read()
 
-            if ret%30 == 0:
+            if self.cur_frame%30 == 0:
                 all_objects = muppy.get_objects()
                 sum1 = summary.summarize(all_objects)
                 summary.print_(sum1)
