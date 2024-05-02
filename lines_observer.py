@@ -6,14 +6,14 @@ class LineObserver:
     columns=["date","from","to","class"]
     
 
-    def __init__(self):
+    def __init__(self,delta_time):
         self.lines = dict()
         self.target_objects = dict()
         self.row_list = []
         self.date_table = pd.DataFrame()
         self.id = 0 #id для линий которые будут добавляться
         
-        self.start_time = datetime.datetime.now()
+        self.delta_time = delta_time
 
 
     def add_line(self, line:sv.LineZone):
@@ -29,9 +29,7 @@ class LineObserver:
             class_to_str = {2:'car',3:'motorcycle',5:'bus',7:'truck'}
             class_name = class_to_str[class_id]
 
-            delta = self.start_time-datetime.datetime(2024,5,1,6,30,0)
-
-            values = (datetime.datetime.now()-delta, line_id1, line_id2, class_name)
+            values = (datetime.datetime.now()-self.delta_time, line_id1, line_id2, class_name)
             self.row_list.append(dict(zip(LineObserver.columns, values)))
             
 

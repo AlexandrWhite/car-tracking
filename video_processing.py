@@ -6,11 +6,12 @@ from lines_observer import LineObserver
 from id_line_annotator import IdLineAnnotator
 import torch
 import re 
+import datetime 
 
 class VideoPlayer:
-    def __init__(self, model='yolov8n.pt'):
+    def __init__(self,video_time, model='yolov8n.pt'):
         self.cap = cv2.VideoCapture()
-
+        
         self.playlist = []
         self.playlist_cur = 0
 
@@ -21,7 +22,7 @@ class VideoPlayer:
 
         self.model = YOLO(model).to(device)
         self.model.fuse()
-        self.line_observer = LineObserver()
+        self.line_observer = LineObserver(delta_time = datetime.datetime.now() - video_time)
 
 
     def generate_frames(self):
@@ -35,10 +36,12 @@ class VideoPlayer:
         while self.cap.isOpened():
             ret, frame = self.cap.read()
 
+            self.line_observer.update_table()
+
             if not ret:
                 if self.playlist_cur > 0:
-                   file_name = re.match(r'.+/(.*)\.webm', self.playlist[self.playlist_cur-1]).group(1)
-                   print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+file_name)
+                   print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+self.playlist[self.playlist_cur-1])
+                   file_name = re.match(r'.+\(.*)\.mp4', self.playlist[self.playlist_cur-1]).group(1)
                    self.line_observer.update_table()
                    self.line_observer.date_table.to_csv(f'/content/drive/MyDrive/may1csv/{file_name}.csv')
                 if self.playlist_cur < len(self.playlist):
@@ -77,7 +80,6 @@ class VideoPlayer:
     def run_new_video(self):
         if self.playlist_cur < len(self.playlist):
             self.cap = cv2.VideoCapture(self.playlist[self.playlist_cur])
-            self.cap.set(cv2.CAP_PROP_FPS, 30)
             self.playlist_cur += 1
         
     

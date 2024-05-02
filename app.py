@@ -5,7 +5,7 @@ import threading
 import os 
 import random
 from video_processing import VideoPlayer
-
+import datetime
 
 app = Flask(__name__)
 
@@ -14,14 +14,13 @@ app = Flask(__name__)
 
 
 app.config['UPLOAD_FOLDER'] = 'video'
-vp = VideoPlayer()
+vp = VideoPlayer(video_time=datetime.datetime(2024,5,1,17,57,41))
 #vp.run_new_video('flask_test/video/test.mp4')
 
 vid_ind = 0 
 VIDEOS = [
-    'X:\\video_record\\old_comp\\test1.webm',
-    'X:\\video_record\\old_comp\\test2.webm',
-    'X:\\video_record\\old_comp\\test3.webm',
+    'C:\\Users\\master\\Downloads\\test1.mp4',
+    'C:\\Users\\master\\Downloads\\test2.mp4'
 ]
 
 vp.set_playlist(VIDEOS)
