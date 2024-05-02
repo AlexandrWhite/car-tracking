@@ -7,6 +7,8 @@ from id_line_annotator import IdLineAnnotator
 import torch
 import re 
 import datetime 
+from pympler import muppy, summary
+
 
 class VideoPlayer:
     def __init__(self,video_time, model='yolov8n.pt'):
@@ -38,10 +40,18 @@ class VideoPlayer:
         while self.cap.isOpened():
             ret, frame = self.cap.read()
 
+            if ret%30 == 0:
+                all_objects = muppy.get_objects()
+                sum1 = summary.summarize(all_objects)
+                summary.print_(sum1)
+            
             if ret and self.cur_frame % 3000 == 0:
                 file_name = re.match(r'.+/(.*)\.mp4', self.playlist[self.playlist_cur-1]).group(1)
                 self.line_observer.update_table()
+                
                 self.line_observer.target_objects.clear()
+                self.line_observer.target_objects_size = 0
+
                 self.line_observer.date_table.to_csv(f'/content/drive/MyDrive/may1csv/{file_name}.csv')
 
             if not ret:
