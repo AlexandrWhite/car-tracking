@@ -77,6 +77,7 @@ class VideoPlayer:
     def run_new_video(self):
         if self.playlist_cur < len(self.playlist):
             self.cap = cv2.VideoCapture(self.playlist[self.playlist_cur])
+            self.cap.set(cv2.CAP_PROP_FPS, 30)
             self.playlist_cur += 1
         
     
