@@ -45,7 +45,7 @@ class VideoPlayer:
                 sum1 = summary.summarize(all_objects)
                 summary.print_(sum1)
             
-            if ret and self.cur_frame % 1000 == 0:
+            if ret and self.cur_frame % 500 == 0:
                 file_name = re.match(r'.+/(.*)\.mp4', self.playlist[self.playlist_cur-1]).group(1)
                 self.line_observer.update_table()
 
