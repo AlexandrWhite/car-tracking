@@ -41,7 +41,7 @@ class VideoPlayer:
             if not ret:
                 if self.playlist_cur > 0:
                    print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+self.playlist[self.playlist_cur-1])
-                   file_name = re.match(r'.+\(.*)\.mp4', self.playlist[self.playlist_cur-1]).group(1)
+                   file_name = re.match(r'.+\\(.*)\.mp4', self.playlist[self.playlist_cur-1]).group(1)
                    self.line_observer.update_table()
                    self.line_observer.date_table.to_csv(f'/content/drive/MyDrive/may1csv/{file_name}.csv')
                 if self.playlist_cur < len(self.playlist):
