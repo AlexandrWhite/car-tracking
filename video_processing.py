@@ -19,6 +19,8 @@ class VideoPlayer:
         print(f'Using device: {device}')
 
         self.points = []
+        
+        self.cur_frame = 0
 
         self.model = YOLO(model).to(device)
         self.model.fuse()
@@ -36,6 +38,9 @@ class VideoPlayer:
         while self.cap.isOpened():
             ret, frame = self.cap.read()
 
+            if ret and self.cur_frame % 5000 == 0:
+                self.line_observer.update_table()
+                self.line_observer.date_table.to_csv(f'/content/drive/MyDrive/may1csv/{file_name}.csv')
 
             if not ret:
                 if self.playlist_cur > 0:
@@ -73,13 +78,14 @@ class VideoPlayer:
             compression_level = 30
             buffer = cv2.imencode('.jpg',frame,[cv2.IMWRITE_JPEG_QUALITY, compression_level])[1]
             frame = buffer.tobytes()
-            
+            self.cur_frame += 1
             yield (b'--frame\r\n'b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')    
 
     def run_new_video(self):
         if self.playlist_cur < len(self.playlist):
             self.cap = cv2.VideoCapture(self.playlist[self.playlist_cur])
             self.playlist_cur += 1
+            self.cur_frame = 0
         
     
     def set_playlist(self,playlist):

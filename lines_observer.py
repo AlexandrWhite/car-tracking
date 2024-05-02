@@ -4,7 +4,6 @@ import datetime
 
 class LineObserver:
     columns=["date","from","to","class"]
-    
 
     def __init__(self,delta_time):
         self.lines = dict()
@@ -12,7 +11,7 @@ class LineObserver:
         self.row_list = []
         self.date_table = pd.DataFrame()
         self.id = 0 #id для линий которые будут добавляться
-        
+        self.row_list_size = 0
         self.delta_time = delta_time
 
 
@@ -31,7 +30,8 @@ class LineObserver:
 
             values = (datetime.datetime.now()-self.delta_time, line_id1, line_id2, class_name)
             self.row_list.append(dict(zip(LineObserver.columns, values)))
-            
+            self.row_list_size += 1
+            print("ROW_LIST_SIZE:", self.row_list_size)
 
     def update(self, detections:sv.Detections):
         # Добавляем к объекту номер линии которую он пересек
