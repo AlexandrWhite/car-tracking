@@ -24,16 +24,14 @@ class VideoPlayer:
     def read_frames(self, processing_function=None):
         while self.cap.isOpened():
             ret, frame = self.cap.read()
-
             if ret:
-                #frame = processing_function(frame)
-
+                frame = processing_function(frame)
                 compression_level = 30
                 buffer = cv2.imencode('.jpg',frame,[cv2.IMWRITE_JPEG_QUALITY, compression_level])[1]
                 frame = buffer.tobytes()
                     
                 yield (b'--frame\r\n'b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')    
-
+    
     def generate_frames(self):
         
         line_annotator = IdLineAnnotator(thickness=2, text_thickness=2, text_scale=1)

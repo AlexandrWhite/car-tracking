@@ -33,12 +33,12 @@ def video():
 def trackers():
     return render_template('trackers.html')
 
-
+import trackers_proc
 @app.route('/byteTrack', methods=['GET','POST'])
 def byteTrack():
     vp = VideoPlayer()
     vp.run_new_video(base_video)
-    new_frame = vp.read_frames()
+    new_frame = vp.read_frames(processing_function=trackers_proc.process_frame)
     return Response(new_frame,mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
