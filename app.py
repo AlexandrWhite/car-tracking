@@ -29,6 +29,11 @@ def video():
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
+@app.route('/trackers', methods=['POST'])
+def trackers():
+    
+
+
 @app.route('/upload',methods=['GET', 'POST'])
 def upload():
     if request.method == 'POST':

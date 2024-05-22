@@ -20,6 +20,8 @@ class VideoPlayer:
         self.line_observer = LineObserver()
 
 
+
+
     def generate_frames(self):
         
         line_annotator = IdLineAnnotator(thickness=2, text_thickness=2, text_scale=1)
