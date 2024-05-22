@@ -7,20 +7,32 @@ from id_line_annotator import IdLineAnnotator
 import torch
 
 class VideoPlayer:
-    def __init__(self, model='yolov8n.pt'):
+    def __init__(self,title = None, model='yolov8n.pt'):
         self.cap = cv2.VideoCapture()
 
-        device = 'cuda' if torch.cuda.is_available() else 'cpu'
-        print(f'Using device: {device}')
+        self.title = title
+
+        #device = 'cuda' if torch.cuda.is_available() else 'cpu'
+        #print(f'Using device: {device}')
 
         self.points = []
 
-        self.model = YOLO(model).to(device)
-        self.model.fuse()
+        #self.model = YOLO(model).to(device)
+        #self.model.fuse()
         self.line_observer = LineObserver()
 
+    def read_frames(self, processing_function=None):
+        while self.cap.isOpened():
+            ret, frame = self.cap.read()
 
+            if ret:
+                #frame = processing_function(frame)
 
+                compression_level = 30
+                buffer = cv2.imencode('.jpg',frame,[cv2.IMWRITE_JPEG_QUALITY, compression_level])[1]
+                frame = buffer.tobytes()
+                    
+                yield (b'--frame\r\n'b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')    
 
     def generate_frames(self):
         

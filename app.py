@@ -7,7 +7,7 @@ import random
 from video_processing import VideoPlayer
 
 app = Flask(__name__)
-
+base_video = 'flask_test/video/test.mp4'
 
 
 
@@ -29,9 +29,18 @@ def video():
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
-@app.route('/trackers', methods=['POST'])
+@app.route('/trackers', methods=['POST','GET'])
 def trackers():
-    
+    return render_template('trackers.html')
+
+
+@app.route('/byteTrack', methods=['GET','POST'])
+def byteTrack():
+    vp = VideoPlayer()
+    vp.run_new_video(base_video)
+    new_frame = vp.read_frames()
+    return Response(new_frame,mimetype='multipart/x-mixed-replace; boundary=frame')
+
 
 
 @app.route('/upload',methods=['GET', 'POST'])
