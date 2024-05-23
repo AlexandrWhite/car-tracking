@@ -7,14 +7,14 @@ import random
 from video_processing import VideoPlayer
 
 app = Flask(__name__)
-base_video = 'flask_test/video/test.mp4'
+base_video = 'video/test.mp4'
 
 
 
 
 app.config['UPLOAD_FOLDER'] = 'video'
 vp = VideoPlayer()
-vp.run_new_video('flask_test/video/test.mp4')
+vp.run_new_video(base_video)
 
 
 @app.route('/')
