@@ -18,12 +18,14 @@ def process_frame(frame):
 
     frame = cv2.resize(frame, (720, 640))
 
-    result = model.track(
-        tracker='bytetrack.yaml',
-        verbose = False,
-        classes = [2,3,5,7])
+    # results = model.track(source=frame,
+    #                         persist = True, 
+    #                         verbose=False,
+    #                         show=False,
+    #                         classes = [2,3,5,7], #car,motorcycle, bus, truck
+    #                         tracker='bytetrack.yaml')
     
-    frame = result[0].plot()
+    # frame = results[0].plot()
 
     if (time.time()-start) != 0:
         fps = 1/(time.time()-start) 
