@@ -18,6 +18,11 @@ def process_frame(frame):
 
     frame = cv2.resize(frame, (720, 640))
 
+    result = model.predict(source = frame, classes = [2,3,5,7], verbose=False)
+    frame = result[0].plot()
+    #frame = cv2.resize(frame, original_size[::-1])
+
+
     # results = model.track(source=frame,
     #                         persist = True, 
     #                         verbose=False,
