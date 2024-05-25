@@ -12,13 +12,13 @@ class VideoPlayer:
 
         self.title = title
 
-        #device = 'cuda' if torch.cuda.is_available() else 'cpu'
-        #print(f'Using device: {device}')
+        device = 'cuda' if torch.cuda.is_available() else 'cpu'
+        print(f'Using device: {device}')
 
         self.points = []
 
-        #self.model = YOLO(model).to(device)
-        #self.model.fuse()
+        self.model = YOLO(model).to(device)
+        self.model.fuse()
         self.line_observer = LineObserver()
 
     def read_frames(self, processing_function=None):
