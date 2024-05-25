@@ -5,7 +5,7 @@ import time
 
 if __name__ != '__main__':
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
-    model = YOLO('yolov8n').to(device)
+    model = YOLO('yolov8x').to(device)
     print(f'Using device for Tracking tests: {device}')
     model.fuse()
 
