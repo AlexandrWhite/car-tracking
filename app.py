@@ -11,7 +11,6 @@ base_video = 'video/test.mp4'
 
 
 
-
 app.config['UPLOAD_FOLDER'] = 'video'
 vp = VideoPlayer()
 vp.run_new_video(base_video)

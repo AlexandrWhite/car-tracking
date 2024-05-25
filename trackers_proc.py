@@ -16,12 +16,14 @@ if __name__ != '__main__':
 def process_frame(frame):
     start = time.time()
 
-    original_size = frame.shape[:2]
     frame = cv2.resize(frame, (720, 640))
 
-    result = model.predict(source = frame, classes = [2,3,5,7], verbose=False)
-    #frame = result[0].plot()
-    #frame = cv2.resize(frame, original_size[::-1])
+    result = model.track(
+        tracker='bytetrack.yaml',
+        verbose = False,
+        classes = [2,3,5,7])
+    
+    frame = result[0].plot()
 
     if (time.time()-start) != 0:
         fps = 1/(time.time()-start) 
