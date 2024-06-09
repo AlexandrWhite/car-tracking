@@ -1,9 +1,7 @@
 from flask import Flask, jsonify, Response, make_response, redirect, url_for, request, render_template
 from werkzeug.utils import secure_filename
 import os
-import threading
-import os 
-import random
+
 from video_processing import VideoPlayer
 import datetime
 
