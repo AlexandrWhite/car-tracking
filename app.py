@@ -5,14 +5,10 @@ import threading
 import os 
 import random
 from video_processing import VideoPlayer
-from pyngrok import ngrok, conf
+
 
 app = Flask(__name__)
-# conf.get_default().auth_token = '2fKNpAlhTcNYlDTyZDjVDuTd58t_4sJBcLPh84HbVQ1ZKLnCg'
-# public_url = ngrok.connect(5000).public_url
-# print(" * ngrok tunnel \"{}\" -> \"http://127.0.0.1:{}/\"".format(public_url, 5000))
 
-# app.config["BASE_URL"] = public_url
 
 
 
@@ -64,4 +60,4 @@ def count_table():
 if __name__ == '__main__':
     app.run(debug=True)
 
-#threading.Thread(target=app.run, kwargs={"use_reloader": False}).start()
+
