@@ -5,7 +5,13 @@ import threading
 import os 
 import random
 from video_processing import VideoPlayer
+import argparse
 
+parser = argparse.ArgumentParser()
+parser.add_argument('--videofile')
+args = parser.parse_args()
+
+print(args.videofile)
 
 app = Flask(__name__)
 
@@ -16,7 +22,7 @@ app = Flask(__name__)
 
 app.config['UPLOAD_FOLDER'] = 'video'
 vp = VideoPlayer(model='flask_test/detection_models/yolov8x.pt')
-vp.run_new_video('flask_test/video/test.mp4')
+vp.run_new_video(args.videofile)
 
 
 @app.route('/')
