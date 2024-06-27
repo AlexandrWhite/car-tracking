@@ -25,11 +25,7 @@ class VideoPlayer:
         line_annotator = IdLineAnnotator(thickness=2, text_thickness=2, text_scale=1)
         tracker = sv.ByteTrack()
 
-        if not self.cap.isOpened():
-            frame = cv2.imread('flask_test/static/default_video.png')
-            buffer = cv2.imencode('.jpg',frame)[1]
-            frame = buffer.tobytes()
-            yield (b'--frame\r\n'b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')    
+       
 
         while self.cap.isOpened():
             ret, frame = self.cap.read()

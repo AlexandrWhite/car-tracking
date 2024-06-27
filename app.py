@@ -15,8 +15,8 @@ app = Flask(__name__)
 
 
 app.config['UPLOAD_FOLDER'] = 'video'
-vp = VideoPlayer()
-vp.run_new_video('flask_test/video/tower.mkv')
+vp = VideoPlayer(model='flask_test/detection_models/yolov8n.pt')
+vp.run_new_video('flask_test/video/test.mp4')
 
 
 @app.route('/')
