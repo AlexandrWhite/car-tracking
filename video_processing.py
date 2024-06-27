@@ -54,7 +54,7 @@ class VideoPlayer:
                             line_counter = self.line_observer.lines[line_id], id=line_id)
 
 
-            compression_level = 30
+            compression_level = 10
             buffer = cv2.imencode('.jpg',frame,[cv2.IMWRITE_JPEG_QUALITY, compression_level])[1]
             frame = buffer.tobytes()
             
